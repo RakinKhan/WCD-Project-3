@@ -6,3 +6,5 @@
 *.tfstate.*
 
 access-credentials.tf
+
+/basic-app/node_modules
