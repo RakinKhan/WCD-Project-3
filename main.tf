@@ -19,9 +19,10 @@ resource "aws_vpc" "project_3_vpc" {
   }
 }
 
-resource "aws_subnet" "prject_3_subnet" {
-  vpc_id     = aws_vpc.project_3_vpc.id
-  cidr_block = "10.0.1.0/24"
+resource "aws_subnet" "project_3_subnet" {
+  availability_zone = "us-east-1a"
+  vpc_id            = aws_vpc.project_3_vpc.id
+  cidr_block        = "10.0.1.0/24"
   tags = {
     Name = "Project 3 Subnet"
   }
@@ -46,7 +47,7 @@ resource "aws_route_table" "project_3_RT" {
 }
 
 resource "aws_route_table_association" "public_rt_association_igw" {
-  subnet_id      = aws_subnet.prject_3_subnet.id
+  subnet_id      = aws_subnet.project_3_subnet.id
   route_table_id = aws_route_table.project_3_RT.id
 }
 
@@ -65,7 +66,7 @@ resource "aws_security_group" "public_security_group" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = -1
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
@@ -73,7 +74,19 @@ resource "aws_security_group" "public_security_group" {
   }
 }
 
-resource "aws_key_pair" "WCD_project_2_key" {
+resource "aws_key_pair" "WCD_project_3_key" {
   key_name   = "WCD_project_3_key"
   public_key = file("~/.ssh/id_rsa.pub")
+}
+
+resource "aws_instance" "project_3_instance" {
+  ami                         = "ami-0c7217cdde317cfec"
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.project_3_subnet.id
+  vpc_security_group_ids      = [aws_security_group.public_security_group.id]
+  key_name                    = aws_key_pair.WCD_project_3_key.key_name
+  associate_public_ip_address = true
+  tags = {
+    Name = "Project 3 Website Server"
+  }
 }
