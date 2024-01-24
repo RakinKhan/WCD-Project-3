@@ -86,6 +86,7 @@ resource "aws_instance" "project_3_instance" {
   vpc_security_group_ids      = [aws_security_group.public_security_group.id]
   key_name                    = aws_key_pair.WCD_project_3_key.key_name
   associate_public_ip_address = true
+  user_data                   = file("setup.sh")
   tags = {
     Name = "Project 3 Website Server"
   }
