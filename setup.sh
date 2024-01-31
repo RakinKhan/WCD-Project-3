@@ -21,5 +21,5 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 # Start docker, download image from Dockerhub repo, and run containter. 
 sudo service docker start
-sudo docker pull rakinkhan/wcd-project-3
+sudo docker pull --platform linux/arm64 rakinkhan/wcd-project-3
 sudo docker run -d -p 80:3000 --rm --name dummy-site rakinkhan/wcd-project-3 
