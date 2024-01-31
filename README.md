@@ -5,7 +5,7 @@
 **Group Members:** Lara, Farius, Juan, Rakin
 
 ## Architecture
-
+![Architecture](WCD_Project_3_diagram.jpeg)
 ## Setup Instructions
 The following files sets up an AWS cloud infrastructure using Terraform to deploy a web application that has been containerized by Docker. The Terraform file creates a VPC with a public subnet and is connected to an internet gateway for public access. Within the public subnet there is an EC2 instance with a public ip address and runs the shell commands found in the ```setup.sh``` file. The ```setup.sh``` is responsible for 2 things. The first task of the script is to update the package managers and then install Docker on the EC2 instance. The second task is to run container of a Docker image that has its port (port 3000) mapped to the host machines port for http requests (port 80). The docker image used for this project is a simple React template in a user created Dockerhub registry.
 
